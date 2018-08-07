@@ -388,20 +388,28 @@ private extension Siren {
         guard let newVersionFirst = newVersion.first, let oldVersionFirst = oldVersion.first else {
             return alertType // Default value is .Option
         }
-
+        
         if newVersionFirst > oldVersionFirst { // A.b.c.d
-            alertType = majorUpdateAlertType
+            alertType = .force
             updateType = .major
-        } else if newVersion.count > 1 && (oldVersion.count <= 1 || newVersion[1] > oldVersion[1]) { // a.B.c.d
-            alertType = minorUpdateAlertType
+        }  else {
+            alertType = .skip
             updateType = .minor
-        } else if newVersion.count > 2 && (oldVersion.count <= 2 || newVersion[2] > oldVersion[2]) { // a.b.C.d
-            alertType = patchUpdateAlertType
-            updateType = .patch
-        } else if newVersion.count > 3 && (oldVersion.count <= 3 || newVersion[3] > oldVersion[3]) { // a.b.c.D
-            alertType = revisionUpdateAlertType
-            updateType = .revision
         }
+
+//        if newVersionFirst > oldVersionFirst { // A.b.c.d
+//            alertType = majorUpdateAlertType
+//            updateType = .major
+//        } else if newVersion.count > 1 && (oldVersion.count <= 1 || newVersion[1] > oldVersion[1]) { // a.B.c.d
+//            alertType = minorUpdateAlertType
+//            updateType = .minor
+//        } else if newVersion.count > 2 && (oldVersion.count <= 2 || newVersion[2] > oldVersion[2]) { // a.b.C.d
+//            alertType = patchUpdateAlertType
+//            updateType = .patch
+//        } else if newVersion.count > 3 && (oldVersion.count <= 3 || newVersion[3] > oldVersion[3]) { // a.b.c.D
+//            alertType = revisionUpdateAlertType
+//            updateType = .revision
+//        }
 
         return alertType
     }
